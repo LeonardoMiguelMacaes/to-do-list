@@ -12,7 +12,7 @@ function TaskComponent() {
             </div>
             <div className="status-line"></div>
         </div>
-        <div className="identifier">    
+        <div className="identifier">
             <div className="task-title">
                 <p className="title">Task Title</p>
             </div>
