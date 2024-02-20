@@ -1,25 +1,21 @@
 import { useEffect, useState } from 'react'
 
-function ApiHandler() {
-    const [data, setData] = useState<any[]>([])
+class ApiHandler {
+    private data: any[] = []
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:8080/todos')
-                
-                if(response.ok) {
-                    const result = await response.json()
-                    setData(result)
-                }
-            }
-            catch (error: any) {
-            }
+    public async fetchData(): Promise<any[]> {
+        try {
+            const response = await fetch('http://localhost:8080/todos')
 
+            if (response.ok) {
+                const result = await response.json()
+                this.data = result
+            }
         }
-        fetchData()
-    }, [])
-    return data
+        catch (error: any) {
+        }
+        return this.data
+    }
 }
 
 export default ApiHandler

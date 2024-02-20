@@ -3,8 +3,6 @@ import './Task.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 
-import ApiHandler from '../api/ApiHandler'
-
 interface TaskComponentProps {
     name:string,
     description:string,
@@ -13,12 +11,6 @@ interface TaskComponentProps {
 }
 
 function TaskComponent(props: TaskComponentProps) {
-    
-    const values = ApiHandler()
-
-    if (values.length === 0 || !values[0]) {
-        return <div></div>;
-    }
 
     const taskName = props.name
     const taskDescription = props.description
