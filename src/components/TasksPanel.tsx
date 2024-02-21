@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import ApiHandler from '../api/ApiHandler'
 import TaskComponent from './Task'
+import './TasksPanel.css'
 
 function TasksPanel() {
   const apiHandler = new ApiHandler()
@@ -15,7 +16,7 @@ function TasksPanel() {
     fetch()
   }, [apiHandler])
   return (
-    <div>
+    <div className='tasks-panel'>
         {tasks.map(task => (
             <TaskComponent name={task.name} description={task.description} done={task.done} priority={task.priority}/>
         ))}
