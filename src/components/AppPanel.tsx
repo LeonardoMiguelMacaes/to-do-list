@@ -6,6 +6,7 @@ import TasksPanel from './TasksPanel'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import './AppPanel.css'
+import NewTaskPanel from './NewTaskPanel'
 
 function currentDate() {
     const [currentDate, setCurrentDate] = useState(new Date())
@@ -30,6 +31,9 @@ function AppPanel() {
             <Landing/>
         </div>
         <div className="panel">
+        <div className="new-task-panel">
+            <NewTaskPanel/>
+        </div>
             <div className="user">
                 <div className="user-msg">
                     <p>Welcome back,</p>
@@ -52,9 +56,17 @@ function AppPanel() {
             </div>
             <div className="tasks">
                 <div className="task-management">
-                    <p>To do</p>
-                    <p>In Progress</p>
-                    <p>Done</p>
+                    <div className="tasks-status">
+                        <p>To do</p>
+                        <p>In Progress</p>
+                        <p>Done</p>
+                    </div>
+                    <div className="new-task">
+                        <div className="new-task-icon">
+                            <p>+</p>
+                        </div>
+                        <p className="new-task-msg">Add new</p>
+                    </div>
                 </div>
                 <TasksPanel/>
             </div>

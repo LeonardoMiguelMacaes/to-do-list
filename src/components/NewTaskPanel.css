@@ -1,0 +1,28 @@
+.new-task-bx {
+    background-color: white;
+    border-radius: 5px;
+    width: 96%;
+    height: 96%;
+    margin-left: 10px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.new-task-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.new-task-panel-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 15px;
+}
+
+.new-task-fields {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
