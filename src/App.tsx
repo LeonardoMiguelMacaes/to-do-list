@@ -1,4 +1,5 @@
 import './App.css'
+import AppPanel from './components/AppPanel'
 import Landing from './components/Landing'
 import TaskComponent from './components/Task'
 import TasksPanel from './components/TasksPanel'
@@ -6,10 +7,9 @@ import TasksPanel from './components/TasksPanel'
 function App() {
 
   return (
-    <>
-    <Landing/>
-    <TasksPanel/>
-    </>
+    <div className="app">
+      <AppPanel/>
+    </div>
   )
 }
 

@@ -6,8 +6,10 @@
     flex-direction: column;
     background-color: white;
     width: 340px;
-    height: 390px;
+    height: 480px;
     border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
 }
 
 .pseudo-element::before {

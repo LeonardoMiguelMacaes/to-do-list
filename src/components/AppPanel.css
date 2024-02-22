@@ -1,0 +1,104 @@
+.app-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    background-color: white;
+    width: 800px;
+    height: 450px;
+    border-radius: 15px;
+}
+
+.landing {
+    position: relative;
+    left: 15px;
+    z-index: 1;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 15px;
+    left: 35px;
+}
+
+.top-data {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.date {
+    font-size: 13px;
+}
+
+.user-profile-img {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    text-align: center;
+    color: white;
+}
+
+.user-msg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 22px;
+    font-weight: 600;
+    margin-left: 7px;
+}
+
+.tasks-completion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -45px;
+    background-color: var(--secondary-color);
+    width: 280px;
+    height: 120px;
+    border-radius: 15px;
+    gap: 35px;
+}
+
+.task-msg {
+    font-size: 12px;
+    color: white;
+    width: 105px;
+}
+
+.task-rate {
+    width: 89px;
+}
+
+.tasks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.task-management {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    margin: 15px;
+    font-weight: 600;
+}
