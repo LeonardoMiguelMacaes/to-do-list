@@ -1,0 +1,17 @@
+#selector {
+    background: white;
+    font-family: inherit;
+    border: none;
+    outline: none;
+    width: 150px;
+    height: 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#selected {
+    background-color: white;
+}
+
+#selected:hover {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
