@@ -4,7 +4,9 @@
   font-family: Poppins;
   --primary-color: #ecebf3;
   --secondary-color: #89c2d9;
-  --task-done: #96e072;
+  --primary-green: #96e072;
+  --primary-yellow: #ffbe0b;
+  --primary-red: #e63946;
 }
 
 .app {

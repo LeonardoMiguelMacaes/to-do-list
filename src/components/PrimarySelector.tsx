@@ -1,24 +1,63 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import './PrimarySelector.css'
 
 interface PrimarySelectorProps {
     className: string
-    values: any[]
+    icons: { key: string; icon: IconDefinition; color: string }[]
+    defaultValue: string
+    defaultIcon: IconDefinition
+    defaultIconColor: string
+    selectorTitle: string
 }
 
-function PrimarySelector({ className, values }: PrimarySelectorProps) {
-    const [selected, setSelected] = useState(values[0])
-
-    const handleSelected = (event: any) => {
+function PrimarySelector({ className, icons, defaultValue, defaultIcon, defaultIconColor, selectorTitle }: PrimarySelectorProps) {
+    const selectValues = icons.map(value => value.key)
+    const iconValues = icons.map(value => value.icon)
+    const colorValues = icons.map(value => value.color)
+    const [selected, setSelected] = useState(defaultValue)
+    const [selectIcon, setSelectIcon] = useState(defaultIcon)
+    const [iconColor, setIconColor] = useState(defaultIconColor)
+    
+    const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelected(event.target.value)
     }
-  return (
+
+    useEffect(() => {
+        setIcon()
+    }, [selected])
+    
+    function setIcon(): IconDefinition {
+        icons.map((value, index) => {
+            const iconKey = selectValues[index]
+            if(iconKey == selected) {
+                const selectedIconValue = iconValues[index]
+                const selectedIconColor = colorValues[index]
+                setSelectIcon(selectedIconValue)
+                setIconColor(selectedIconColor)
+            }
+        })
+
+        return selectIcon
+    }
+
+return (
     <div className="selector-bx">
-        <select className={className} id='selector' value={selected} onChange={handleSelected}>
-            {values.map((value) => (
-                <option id='selected' value={value}>{value}</option>
-            ))}
-        </select>
+        <div className="selector-label">
+            <p className="selector-title">{selectorTitle}</p>
+        </div>
+        <div className="selector-bx-wrapper">
+            <div className="icon-bx" style={{backgroundColor: iconColor}}>
+                <FontAwesomeIcon icon={selectIcon}/>
+            </div>
+            <select className={className} id='selector' value={selected} onChange={handleSelected}>
+                {selectValues.map((value) => (
+                    <option id='selected' value={value}>
+                        {value}</option>
+                ))}
+            </select>
+        </div>
     </div>
   )
 }
