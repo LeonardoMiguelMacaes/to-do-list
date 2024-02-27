@@ -1,4 +1,4 @@
-.input-bx {
+.textarea-bx {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -7,7 +7,8 @@
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 }
 
-#primaryInput {
+#primaryTextArea {
+    resize: none;
     outline: none;
     border: none;
     width: 100%;
@@ -15,11 +16,11 @@
     border-radius: 5px;
     font-size: 15px;
     font-family: inherit;
-    padding: 5px;
+    padding: 20px 5px;
     font-weight: 400;
 }
 
-.input-placeholder {
+.textarea-placeholder {
     position: absolute;
     left: 5px;
     top: 3px;

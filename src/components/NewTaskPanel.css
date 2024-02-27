@@ -1,7 +1,7 @@
 .new-task-bx {
     background-color: white;
     border-radius: 5px;
-    width: 96%;
+    width: 50%;
     height: 96%;
     margin-left: 10px;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
@@ -12,7 +12,15 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    position: relative;
     gap: 6px;
+}
+
+.close-bx {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    font-weight: 600;
 }
 
 .new-task-panel-title {
@@ -25,11 +33,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.new-task-fields-bx {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+    flex-direction: column;
+    gap: 30px;
 }

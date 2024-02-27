@@ -4,6 +4,8 @@ import { faCaretUp, faCaretDown, faMinus, IconDefinition } from '@fortawesome/fr
 import PrimaryInput from './PrimaryInput'
 import './NewTaskPanel.css'
 import TaskPrioritySelector from './PrimarySelector'
+import PrimaryTextArea from './PrimaryTextArea'
+import PrimaryButton from './PrimaryButton'
 
 function NewTaskPanel() {
   const prioritySelectorIcons: { key: string; icon: IconDefinition; color: string}[] = [
@@ -15,14 +17,19 @@ function NewTaskPanel() {
   return (
     <div className="new-task-bx">
       <div className="new-task-content">
-          <div className="new-task-panel-title">
-              <p>Add New Task</p>
-          </div>
-          <div className="new-task-fields">
-            <div className="new-task-fields-bx">
-              <PrimaryInput className='task-name-input' placeholder='Task Name'/>
-              <TaskPrioritySelector className='priority-selector' icons={prioritySelectorIcons} defaultValue='High' defaultIcon={faCaretUp} defaultIconColor='var(--primary-green)' selectorTitle='Task Priority'/>
+            <div className="new-task-panel-title">
+                <p>Add New Task</p>
             </div>
+            <div className="close-bx">
+              <p className="close">x</p>
+            </div>
+          <div className="new-task-fields">
+              <PrimaryInput className='task-name-input' placeholder='Task Name' height='50px'/>
+              <PrimaryTextArea className='task-description-textarea' placeholder='Task Description' height='80px'/>
+              <div className="selectors">
+              <TaskPrioritySelector className='priority-selector' icons={prioritySelectorIcons} defaultValue='High' defaultIcon={faCaretUp} defaultIconColor='var(--primary-green)' selectorTitle='Task Priority'/>
+              </div>
+              <PrimaryButton className='send-task-button' buttonValue='Send Task' width='96px' height='35px'/>
           </div>
         </div>
     </div>

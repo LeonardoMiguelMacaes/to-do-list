@@ -1,0 +1,11 @@
+#primaryButton {
+    border: none;
+    background-color: var(--secondary-color);
+    border-radius: 15px;
+    padding: 5px 15px;
+    color: white;
+    font-size: 12px;
+    font-family: inherit;
+    font-weight: 500;
+    cursor: pointer;
+}
