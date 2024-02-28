@@ -1,0 +1,35 @@
+.message-bx {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    right: -120px;
+    width: 120px;
+    background-color: var(--primary-green);
+    color: white;
+    border-radius: 5px;
+    animation: startMessage 8s ease-in-out;
+}
+
+.message {
+    font-family: inherit;
+    font-size: 10px;
+    margin: 3px;
+    font-weight: 500;
+}
+
+@keyframes startMessage {
+    0% {
+
+    }
+    15% {
+        transform: translateX(-150px);
+    }
+    85% {
+        transform: translateX(-150px);
+    }
+    100% {
+        transform: translateX(0px);
+    }
+}

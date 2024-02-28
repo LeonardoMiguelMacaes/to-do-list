@@ -23,7 +23,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--task-done);
+    background-color: var(--primary-green);
     border-radius: 5px;
     max-height: 30px;
 }

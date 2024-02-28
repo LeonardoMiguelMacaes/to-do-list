@@ -10,9 +10,10 @@ interface PrimarySelectorProps {
     defaultIcon: IconDefinition
     defaultIconColor: string
     selectorTitle: string
+    onSelectorChange: (value: number) => void
 }
 
-function PrimarySelector({ className, icons, defaultValue, defaultIcon, defaultIconColor, selectorTitle }: PrimarySelectorProps) {
+function PrimarySelector({ className, icons, defaultValue, defaultIcon, defaultIconColor, selectorTitle, onSelectorChange }: PrimarySelectorProps) {
     const selectValues = icons.map(value => value.key)
     const iconValues = icons.map(value => value.icon)
     const colorValues = icons.map(value => value.color)
@@ -22,6 +23,19 @@ function PrimarySelector({ className, icons, defaultValue, defaultIcon, defaultI
     
     const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelected(event.target.value)
+        onSelectorChange(definePriority(event.target.value))
+    }
+
+    function definePriority(priority: string) {
+        if(priority == 'High') {
+            return 1
+        }
+        else if(priority == 'Medium') {
+            return 2
+        }
+        else {
+            return 3
+        }
     }
 
     useEffect(() => {

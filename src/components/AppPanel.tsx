@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import './AppPanel.css'
 import NewTaskPanel from './NewTaskPanel'
+import PrimaryMessage from './PrimaryMessage'
 
 function currentDate() {
     const [currentDate, setCurrentDate] = useState(new Date())

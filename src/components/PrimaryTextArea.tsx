@@ -5,12 +5,25 @@ interface PrimaryTextAreaProps {
     className: string
     placeholder: string
     height: string
+    onTextAreaChange: (value: string) => void
   }
 
-function PrimaryTextArea({ className, placeholder, height }: PrimaryTextAreaProps) {
+function PrimaryTextArea({ className, placeholder, height, onTextAreaChange }: PrimaryTextAreaProps) {
+
+  const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    onTextAreaChange(event.target.value)
+  }
   return (
     <div className="textarea-bx">
-        <textarea className={className} id='primaryTextArea' cols={20} rows={10} style={{height: height}} maxLength={80}></textarea>
+        <textarea 
+          className={className} 
+          id='primaryTextArea' 
+          cols={20} 
+          rows={10} 
+          style={{height: height}} 
+          maxLength={80} 
+          onChange={handleTextAreaChange}>
+        </textarea>
         <label htmlFor="textarea-bx" className="textarea-placeholder">{ placeholder }</label>
     </div>
   )
