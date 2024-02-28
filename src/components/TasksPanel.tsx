@@ -16,11 +16,11 @@ function TasksPanel() {
     fetch()
   }, [apiHandler])
   return (
-    <div className='tasks-panel'>
-        {tasks.map(task => (
-            <TaskComponent name={task.name} description={task.description} done={task.done} priority={task.priority}/>
-        ))}
-    </div>
+      <div className='tasks-panel'>
+          {tasks.map(task => (
+              <TaskComponent name={task.name} description={task.description} done={task.done} priority={task.priority}/>
+          ))}
+      </div>
   )
 }
 

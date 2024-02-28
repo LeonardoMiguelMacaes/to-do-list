@@ -7,6 +7,7 @@ import PrimarySelector from './PrimarySelector'
 import PrimaryTextArea from './PrimaryTextArea'
 import PrimaryButton from './PrimaryButton'
 import PrimaryMessage from './PrimaryMessage'
+import ApiHandler from '../api/ApiHandler'
 
 function NewTaskPanel() {
   const prioritySelectorIcons: { key: string; icon: IconDefinition; color: string}[] = [
@@ -14,6 +15,7 @@ function NewTaskPanel() {
     {key: 'Medium', icon: faMinus, color: 'var(--primary-yellow)'}, 
     {key: 'Low', icon: faCaretDown, color: 'var(--primary-red)'}
   ]
+  
   const [taskNameValue, setTaskNameValue] = useState('')
   const getTaskName = (value: string) => {
     setTaskNameValue(value)
@@ -29,19 +31,20 @@ function NewTaskPanel() {
     setTaskPriorityValue(value)
   }
   
-  const [submitMessages, setSubmitMessages] = useState<Array<{backgroundColor: string; message: string; messageTimestamp: number}>>([])
-  const [isSubmitButtonClicked, setIsSubmitButtonClicked] = useState(false)
-  const [isMessageActive, setIsMessageActive] = useState(false)
+  const [submitMessages, setSubmitMessages] = useState<Array<{id: number; backgroundColor: string; message: string}>>([])
   const [isTaskSuccessful, setIsTaskSuccesful] = useState(true)
 
   function addSubmitMessage(backgroundColor: string, message: string) {
-
-    const messageTimestamp = Date.now()
-    setSubmitMessages((prevSubmitMessages) => [...prevSubmitMessages, { backgroundColor, message, messageTimestamp }])
+    
+    const submitMessage = {id: new Date().getTime(), backgroundColor, message}
+    setSubmitMessages((prevSubmitMessages) => [submitMessage, ...prevSubmitMessages])
+    
+    setTimeout(() => {
+      setSubmitMessages((prevSubmitMessages) => prevSubmitMessages.filter((msg) => msg.id !== submitMessage.id))
+    }, 8000)
   }
+  
   function verifyFieldsValues() {
-    setIsMessageActive(true)
-    setIsSubmitButtonClicked(true)
     
     if(taskNameValue.trim().length == 0 || taskDescriptionValue.trim().length == 0) {
       setIsTaskSuccesful(false)
@@ -52,12 +55,21 @@ function NewTaskPanel() {
       addSubmitMessage('var(--primary-green)', 'Task created successfully')
     }
   }
+
+  
+  function handleTaskPost() {
+    verifyFieldsValues()
+    if(isTaskSuccessful) {
+      const apiHandler = new ApiHandler()
+      apiHandler.postData(taskNameValue, taskDescriptionValue, taskPriorityValue)
+    }
+  }
   
   return (
     <div className="new-task-wrapper">
       <div className="messages-bx">
-        {submitMessages.map((submitMessage, index) => (
-          <PrimaryMessage key={index} backgroundColor={submitMessage.backgroundColor} message={submitMessage.message}/>
+        {submitMessages.map((submitMessage) => (
+          <PrimaryMessage key={submitMessage.id} backgroundColor={submitMessage.backgroundColor} message={submitMessage.message}/>
         ))}
       </div>
       <div className="new-task-bx">
@@ -77,11 +89,11 @@ function NewTaskPanel() {
                   icons={prioritySelectorIcons}
                   defaultValue='High'
                   defaultIcon={faCaretUp}
-                  defaultIconColor='var(--primary-green)' 
+                  defaultIconColor='var(--primary-green)'
                   selectorTitle='Task Priority'
                   onSelectorChange={getTaskPriority}/>
                 </div>
-                <PrimaryButton className='send-task-button' buttonValue='Send Task' width='96px' height='35px' onClickedAction={verifyFieldsValues}/>
+                <PrimaryButton className='send-task-button' buttonValue='Send Task' width='96px' height='35px' onClickedAction={handleTaskPost}/>
             </div>
           </div>
       </div>

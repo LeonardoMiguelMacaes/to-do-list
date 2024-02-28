@@ -16,6 +16,27 @@ class ApiHandler {
         }
         return this.data
     }
+
+    public async postData(taskName: string, taskDescription: string, taskPriority: number) {
+        const bodyResponse = `{
+            "name": "${taskName}",
+            "description": "${taskDescription}",
+            "done": 0,
+            "priority": ${taskPriority}
+        }`
+        try {
+            const response = await fetch('http://localhost:8080/todos', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: bodyResponse
+            })
+        }
+        catch(error: any) {  
+        }
+    }
 }
 
 export default ApiHandler
