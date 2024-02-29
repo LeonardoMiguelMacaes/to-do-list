@@ -70,8 +70,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: relative;
-    top: 160px;
+    position: absolute;
+    top: 60px;
     background-color: var(--secondary-color);
     width: 280px;
     height: 120px;
@@ -90,7 +90,7 @@
 }
 
 .tasks {
-    position: relative;
+    position: absolute;
     top: 189px;
 }
 

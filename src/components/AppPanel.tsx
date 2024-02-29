@@ -26,15 +26,22 @@ function currentDate() {
 }
 
 function AppPanel() {
+
+    const [isNewTaskOpen, setIsNewTaskOpen] = useState(false)
+
+    const handleNewTaskClose = () => {
+        setIsNewTaskOpen(false)
+    }
+
   return (
     <div className="app-panel">
         <div className="user-landing">
             <Landing/>
         </div>
         <div className="panel">
-        <div className="new-task-panel">
-            <NewTaskPanel/>
-        </div>
+        {isNewTaskOpen && <div className="new-task-panel">
+            <NewTaskPanel onCloseButtonClick={handleNewTaskClose}/>
+        </div>}
             <div className="user">
                 <div className="user-msg">
                     <p>Welcome back,</p>
@@ -62,7 +69,7 @@ function AppPanel() {
                         <p>In Progress</p>
                         <p>Done</p>
                     </div>
-                    <div className="new-task">
+                    <div className="new-task" onClick={() => setIsNewTaskOpen(true)}>
                         <div className="new-task-icon">
                             <p>+</p>
                         </div>

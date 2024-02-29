@@ -2,6 +2,7 @@ import './Task.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
+import { useState } from 'react'
 
 interface TaskComponentProps {
     name:string,
@@ -15,13 +16,13 @@ function TaskComponent(props: TaskComponentProps) {
     const taskName = props.name
     const taskDescription = props.description
     const taskDone = props.done ? "Done" : "To Do"
-    var taskPriority = "High"
+    var taskPriority = "High priority"
 
     if(props.priority == 2) {
-        taskPriority = "Medium"
+        taskPriority = "Medium priority"
     }
     else if(props.priority == 3) {
-        taskPriority = "Low"
+        taskPriority = "Low priority"
     }
 
     return (
@@ -40,11 +41,8 @@ function TaskComponent(props: TaskComponentProps) {
                     <p className="description">{taskDescription}</p>
                 </div>
             </div>
-            <div className="task-time">
-                <div className="task-icon">
-                    <FontAwesomeIcon icon={faClock} />
-                </div>
-                <div className="time">5:00 PM</div>
+            <div className="task-priority">
+                <p className="priority">{taskPriority}</p>
             </div>
         </div>
     )

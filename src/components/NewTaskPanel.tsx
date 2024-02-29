@@ -9,7 +9,18 @@ import PrimaryButton from './PrimaryButton'
 import PrimaryMessage from './PrimaryMessage'
 import ApiHandler from '../api/ApiHandler'
 
-function NewTaskPanel() {
+interface NewTaskPanelProps {
+  onCloseButtonClick: (clicked: boolean) => void
+}
+
+function NewTaskPanel({ onCloseButtonClick }: NewTaskPanelProps) {
+  const [isCloseButtonClicked, setIsCloseButtonClicked] = useState(false)
+
+  const handleCloseButtonClick = () => {
+    setIsCloseButtonClicked(true)
+    onCloseButtonClick(true)
+  }
+
   const prioritySelectorIcons: { key: string; icon: IconDefinition; color: string}[] = [
     {key: 'High', icon: faCaretUp, color: 'var(--primary-green)'}, 
     {key: 'Medium', icon: faMinus, color: 'var(--primary-yellow)'}, 
@@ -32,7 +43,6 @@ function NewTaskPanel() {
   }
   
   const [submitMessages, setSubmitMessages] = useState<Array<{id: number; backgroundColor: string; message: string}>>([])
-  const [isTaskSuccessful, setIsTaskSuccesful] = useState(true)
 
   function addSubmitMessage(backgroundColor: string, message: string) {
     
@@ -44,25 +54,21 @@ function NewTaskPanel() {
     }, 8000)
   }
   
-  function verifyFieldsValues() {
+  function submitTask() {
     
     if(taskNameValue.trim().length == 0 || taskDescriptionValue.trim().length == 0) {
-      setIsTaskSuccesful(false)
       addSubmitMessage('var(--primary-red)', 'Fill all fields before assining a new task')
     }
     else{
-      setIsTaskSuccesful(true)
       addSubmitMessage('var(--primary-green)', 'Task created successfully')
+      handleTaskPost()
     }
   }
 
   
   function handleTaskPost() {
-    verifyFieldsValues()
-    if(isTaskSuccessful) {
       const apiHandler = new ApiHandler()
       apiHandler.postData(taskNameValue, taskDescriptionValue, taskPriorityValue)
-    }
   }
   
   return (
@@ -77,7 +83,7 @@ function NewTaskPanel() {
               <div className="new-task-panel-title">
                   <p>Add New Task</p>
               </div>
-              <div className="close-bx">
+              <div className="close-bx" onClick={handleCloseButtonClick}>
                 <p className="close">x</p>
               </div>
             <div className="new-task-fields">
@@ -93,7 +99,7 @@ function NewTaskPanel() {
                   selectorTitle='Task Priority'
                   onSelectorChange={getTaskPriority}/>
                 </div>
-                <PrimaryButton className='send-task-button' buttonValue='Send Task' width='96px' height='35px' onClickedAction={handleTaskPost}/>
+                <PrimaryButton className='send-task-button' buttonValue='Send Task' width='96px' height='35px' onClickedAction={submitTask}/>
             </div>
           </div>
       </div>
