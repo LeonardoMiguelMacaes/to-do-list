@@ -37,6 +37,27 @@ class ApiHandler {
         catch(error: any) {  
         }
     }
+
+    public async editData(taskId: number, taskName: string, taskDescription: string, taskPriority: number) {
+        const bodyResponse = `{
+            "name": "${taskName}",
+            "description": "${taskDescription}",
+            "done": 0,
+            "priority": ${taskPriority}
+        }`
+        try {
+            const response = await fetch(`http://localhost:8080/todos/edit/${taskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: bodyResponse
+            })
+        }
+        catch(error: any) {
+        }
+    }
 }
 
 export default ApiHandler

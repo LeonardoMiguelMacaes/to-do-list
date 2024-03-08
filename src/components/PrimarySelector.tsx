@@ -1,41 +1,35 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons'
+import { IconDefinition, faCaretUp } from '@fortawesome/free-solid-svg-icons'
 import './PrimarySelector.css'
+import SelectorConverter from '../__selector-converter/SelectorConverter'
 
 interface PrimarySelectorProps {
     className: string
     icons: { key: string; icon: IconDefinition; color: string }[]
     defaultValue: string
-    defaultIcon: IconDefinition
-    defaultIconColor: string
     selectorTitle: string
     onSelectorChange: (value: number) => void
 }
 
-function PrimarySelector({ className, icons, defaultValue, defaultIcon, defaultIconColor, selectorTitle, onSelectorChange }: PrimarySelectorProps) {
+function PrimarySelector({ className, icons, defaultValue, selectorTitle, onSelectorChange }: PrimarySelectorProps) {
+    const converter = new SelectorConverter()
+    
     const selectValues = icons.map(value => value.key)
     const iconValues = icons.map(value => value.icon)
     const colorValues = icons.map(value => value.color)
-    const [selected, setSelected] = useState(defaultValue)
-    const [selectIcon, setSelectIcon] = useState(defaultIcon)
-    const [iconColor, setIconColor] = useState(defaultIconColor)
+    const [selected, setSelected] = useState('High')
+    const [selectIcon, setSelectIcon] = useState(faCaretUp)
+    const [iconColor, setIconColor] = useState('var(--primary-green)')
+
+    useEffect(() => {
+        setSelected(defaultValue)
+        onSelectorChange(converter.convertStringToId(defaultValue, SelectorConverter.Priority))
+    }, [defaultValue])
     
     const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelected(event.target.value)
-        onSelectorChange(definePriority(event.target.value))
-    }
-
-    function definePriority(priority: string) {
-        if(priority == 'High') {
-            return 1
-        }
-        else if(priority == 'Medium') {
-            return 2
-        }
-        else {
-            return 3
-        }
+        onSelectorChange(converter.convertStringToId(selected, SelectorConverter.Priority))
     }
 
     useEffect(() => {

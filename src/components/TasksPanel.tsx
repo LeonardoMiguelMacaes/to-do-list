@@ -18,7 +18,7 @@ function TasksPanel() {
   return (
       <div className='tasks-panel'>
           {tasks.map(task => (
-              <TaskComponent name={task.name} description={task.description} done={task.done} priority={task.priority}/>
+              <TaskComponent id={task.id} name={task.name} description={task.description} done={task.done} priority={task.priority}/>
           ))}
       </div>
   )

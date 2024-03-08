@@ -40,7 +40,7 @@ function AppPanel() {
         </div>
         <div className="panel">
         {isNewTaskOpen && <div className="new-task-panel">
-            <NewTaskPanel onCloseButtonClick={handleNewTaskClose}/>
+            <NewTaskPanel isOnEditMode={false} task={null} onCloseButtonClick={handleNewTaskClose}/>
         </div>}
             <div className="user">
                 <div className="user-msg">

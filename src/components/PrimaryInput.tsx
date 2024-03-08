@@ -5,10 +5,11 @@ interface PrimaryInputProps {
   className: string
   placeholder: string
   height: string
+  defaultValue: string
   onInputChange: (value: string) => void
 }
 
-function PrimaryInput({ placeholder, className, height, onInputChange }: PrimaryInputProps) {
+function PrimaryInput({ placeholder, className, height, defaultValue, onInputChange }: PrimaryInputProps) {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     onInputChange(event.target.value)
@@ -20,7 +21,8 @@ function PrimaryInput({ placeholder, className, height, onInputChange }: Primary
           id='primaryInput' 
           style={{height: height}} 
           maxLength={35} 
-          onChange={handleInputChange} />
+          onChange={handleInputChange} 
+          value={defaultValue}/>
         <label htmlFor="primary-input" className="input-placeholder">{ placeholder }</label>
     </div>
   )
