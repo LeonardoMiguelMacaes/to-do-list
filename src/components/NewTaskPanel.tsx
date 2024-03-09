@@ -67,8 +67,9 @@ function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps
   }
 
   const [taskPriorityId, setTaskPriorityId] = useState(1)
-  const getTaskPriority = (value: number) => {
-    setTaskPriorityId(value)
+  const getTaskPriority = (value: string) => {
+    const converter = new SelectorConverter()
+    setTaskPriorityId(converter.convertStringToId(value, SelectorConverter.Priority))
   }
   //--------------------------------------------------------------------------------------
 
@@ -165,7 +166,7 @@ function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps
                 icons={prioritySelectorIcons}
                 defaultValue={defaultSelectorValue}
                 selectorTitle='Task Priority'
-                onSelectorChange={getTaskPriority}
+                onSelectedChange={getTaskPriority}
               />
             </div>
             <PrimaryButton

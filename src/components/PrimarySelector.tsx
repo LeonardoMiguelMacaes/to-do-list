@@ -9,10 +9,10 @@ interface PrimarySelectorProps {
     icons: { key: string; icon: IconDefinition; color: string }[]
     defaultValue: string
     selectorTitle: string
-    onSelectorChange: (value: number) => void
+    onSelectedChange: (value: string) => void
 }
 
-function PrimarySelector({ className, icons, defaultValue, selectorTitle, onSelectorChange }: PrimarySelectorProps) {
+function PrimarySelector({ className, icons, defaultValue, selectorTitle, onSelectedChange }: PrimarySelectorProps) {
     const converter = new SelectorConverter()
     
     const selectValues = icons.map(value => value.key)
@@ -24,12 +24,11 @@ function PrimarySelector({ className, icons, defaultValue, selectorTitle, onSele
 
     useEffect(() => {
         setSelected(defaultValue)
-        onSelectorChange(converter.convertStringToId(defaultValue, SelectorConverter.Priority))
     }, [defaultValue])
     
     const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setSelected(event.target.value)
-        onSelectorChange(converter.convertStringToId(selected, SelectorConverter.Priority))
+        onSelectedChange(event.target.value)
     }
 
     useEffect(() => {

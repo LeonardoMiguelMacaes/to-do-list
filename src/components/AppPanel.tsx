@@ -53,7 +53,7 @@ function AppPanel() {
                     <p>{currentDate()}</p>
                 </div>
                 <div className="user-profile-img">
-                        <FontAwesomeIcon icon={faUser}/>
+                    <FontAwesomeIcon icon={faUser}/>
                 </div>
             </div>
             <div className="tasks-completion">
