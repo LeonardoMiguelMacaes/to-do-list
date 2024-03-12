@@ -50,7 +50,7 @@ function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps
       setTaskDescriptionValue(editTaskDescription)
       setDefaultSelectorValue(editTaskPriority)
     }
-  }, [task])
+  }, [])
   //------------------------------------------------------------------------------------
 
   //Variáveis responsáveis por atualizarem o valor dos campos, usando funções de callback

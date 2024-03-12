@@ -5,6 +5,7 @@ import { faList } from '@fortawesome/free-solid-svg-icons'
 import { useEffect, useState } from 'react'
 import NewTaskPanel from './NewTaskPanel'
 import SelectorConverter from '../__selector-converter/SelectorConverter'
+import ApiHandler from '../api/ApiHandler'
 
 interface TaskComponentProps {
     id:number,
@@ -15,11 +16,11 @@ interface TaskComponentProps {
 }
 
 function TaskComponent(props: TaskComponentProps) {
+    const apiHandler = new ApiHandler()
     const converter = new SelectorConverter()
 
     const [isOptionsClicked, setIsOptionsClicked] = useState(false)
     const [isUpdateStatusClicked, setIsUpdatedStatusClicked] = useState(false)
-    const [isDeleteTaskClicked, setIsDeleteTaskClicked] = useState(false)
     const [isEditTaskOpen, setIsEditTaskOpen] = useState(false)
 
     var taskId = props.id
@@ -50,7 +51,7 @@ function TaskComponent(props: TaskComponentProps) {
     }
 
     function handleDeleteTaskClick() {
-        setIsDeleteTaskClicked(true)
+        apiHandler.deleteData(taskId)
     }
     
     return (
@@ -79,7 +80,7 @@ function TaskComponent(props: TaskComponentProps) {
                         {isOptionsClicked && <div className="options">
                             <div className="update-status">Update status</div>
                             <div className="edit-task" onClick={handleEditTaskClick}>Edit task</div>
-                            <div className="delete-task">Delete task</div>
+                            <div className="delete-task" onClick={handleDeleteTaskClick}>Delete task</div>
                         </div>}
                     </div>
                 </div>

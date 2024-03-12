@@ -58,6 +58,16 @@ class ApiHandler {
         catch(error: any) {
         }
     }
+
+    public async deleteData(taskId: number) {
+        try {
+            const response = await fetch(`http://localhost:8080/todos/${taskId}`, {
+                method: 'DELETE'
+            })
+        }
+        catch(error: any) {
+        }
+    }
 }
 
 export default ApiHandler
