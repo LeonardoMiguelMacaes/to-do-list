@@ -3,15 +3,20 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar'
 import 'react-circular-progressbar/dist/styles.css'
 
 interface TaskRateCircleProps {
-    percentage: number
+  toDoTasksNumber: number
+  doneTasksNumber: number
 }
 
-function TaskRateCircle({ percentage }: TaskRateCircleProps) {
+function TaskRateCircle({ toDoTasksNumber, doneTasksNumber }: TaskRateCircleProps) {
+
+  const percentage = () => {
+    return (doneTasksNumber / (toDoTasksNumber + doneTasksNumber)) * 100
+  }
   return (
     <div>
         <CircularProgressbar
-        value={percentage}
-        text={`${percentage}%`}
+        value={percentage()}
+        text={`${percentage()}%`}
         styles={buildStyles({
             textColor: 'white',
             pathColor: 'white',

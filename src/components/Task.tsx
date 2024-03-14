@@ -2,31 +2,25 @@ import './Task.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import NewTaskPanel from './NewTaskPanel'
 import SelectorConverter from '../__selector-converter/SelectorConverter'
 import ApiHandler from '../api/ApiHandler'
+import Task from '../_task/TaskInterface'
 
-interface TaskComponentProps {
-    id:number,
-    name:string,
-    description:string,
-    done: boolean,
-    priority:number
-}
-
-function TaskComponent(props: TaskComponentProps) {
+function TaskComponent(props: Task) {
     const apiHandler = new ApiHandler()
     const converter = new SelectorConverter()
 
     const [isOptionsClicked, setIsOptionsClicked] = useState(false)
-    const [isUpdateStatusClicked, setIsUpdatedStatusClicked] = useState(false)
     const [isEditTaskOpen, setIsEditTaskOpen] = useState(false)
+    const optionsDivRef = useRef<HTMLDivElement>(null)
 
     var taskId = props.id
     var taskName = props.name
     var taskDescription = props.description
     var taskDone = props.done ? "Done" : "To Do"
+    var taskDoneBackgroundColor = props.done ? "var(--primary-green)" : "var(--secondary-color)"
     var taskPriority = converter.convertIdToString(props.priority, SelectorConverter.Priority)
     
     const handleEditTaskClose = () => {
@@ -34,16 +28,13 @@ function TaskComponent(props: TaskComponentProps) {
     }
 
     function handleOptionsClick() {
-        if(isOptionsClicked) {
-            setIsOptionsClicked(false)
-        }
-        else {
-            setIsOptionsClicked(true)
-        }
+        const optionsPanelStatus = isOptionsClicked == false ? true : false
+        setIsOptionsClicked(optionsPanelStatus)
     }
 
     function handleUpdateStatusClick() {
-        setIsUpdatedStatusClicked(true)
+        const isTaskDone = props.done == false ? true : false
+        apiHandler.updateStatus(taskId, isTaskDone)
     }
 
     function handleEditTaskClick() {
@@ -53,16 +44,30 @@ function TaskComponent(props: TaskComponentProps) {
     function handleDeleteTaskClick() {
         apiHandler.deleteData(taskId)
     }
+
+    useEffect(() => {
+        function handleOutsideOptionsDivClick(event: MouseEvent) {
+            if(optionsDivRef.current && !optionsDivRef.current.contains(event.target as Node)) {
+                setIsOptionsClicked(false)
+            }
+        }
+        document.addEventListener('click', handleOutsideOptionsDivClick)
+
+        return () => {
+            document.removeEventListener('click', handleOutsideOptionsDivClick)
+        }
+
+    }, [])
     
     return (
             <div className="task">
-                {isEditTaskOpen && <NewTaskPanel isOnEditMode={true} task={[taskId, taskName, taskDescription, taskPriority]}onCloseButtonClick={handleEditTaskClose}/>}
+                {isEditTaskOpen && <NewTaskPanel panelTitle='Edit task' isOnEditMode={true} task={[taskId, taskName, taskDescription, taskPriority]}onCloseButtonClick={handleEditTaskClose}/>}
                 <div className="task-wrapper">
                     <div className="task-status">
-                        <div className="status-value">
+                        <div className="status-value" style={{backgroundColor: taskDoneBackgroundColor}}>
                             <p className="status">{taskDone}</p>
                         </div>
-                        <div className="status-line"></div>
+                        <div className="status-line" style={{backgroundColor: taskDoneBackgroundColor}}></div>
                     </div>
                     <div className="identifier">
                         <div className="task-title">
@@ -75,10 +80,10 @@ function TaskComponent(props: TaskComponentProps) {
                     <div className="task-priority">
                         <p className="priority">{taskPriority + " priority"}</p>
                     </div>
-                    <div className="task-options" onClick={handleOptionsClick}>
+                    <div className="task-options" onClick={handleOptionsClick} ref={optionsDivRef}>
                         <FontAwesomeIcon className="task-options-icon" icon={faList}/>
                         {isOptionsClicked && <div className="options">
-                            <div className="update-status">Update status</div>
+                            <div className="update-status" onClick={handleUpdateStatusClick}>Update status</div>
                             <div className="edit-task" onClick={handleEditTaskClick}>Edit task</div>
                             <div className="delete-task" onClick={handleDeleteTaskClick}>Delete task</div>
                         </div>}

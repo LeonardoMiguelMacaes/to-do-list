@@ -8,12 +8,13 @@ import { faUser } from '@fortawesome/free-solid-svg-icons'
 import './AppPanel.css'
 import NewTaskPanel from './NewTaskPanel'
 import PrimaryMessage from './PrimaryMessage'
+import ApiHandler from '../api/ApiHandler'
+import Task from '../_task/TaskInterface'
 
 function currentDate() {
     const [currentDate, setCurrentDate] = useState(new Date())
 
     useEffect(() => {
-    
         const intervalId = setInterval(() => {
             setCurrentDate(new Date())
         }, 1000)
@@ -27,60 +28,80 @@ function currentDate() {
 
 function AppPanel() {
 
+    const apiHandler = new ApiHandler()
+
+    const [tasks, setTasks] = useState<Task[]>([])
+    const [toDoTasks, setToDoTasks] = useState<Task[]>([])
+    const [doneTasks, setDoneTasks] = useState<Task[]>([])
+
+    useEffect(() => {
+        const toDo = tasks.filter(element => !element.done)
+        const done = tasks.filter(element => element.done)
+        setToDoTasks(toDo)
+        setDoneTasks(done)
+    }, [tasks])
+
+    useEffect(() => {
+        const fetch = async () => {
+            const data = await apiHandler.fetchData()
+            setTasks(data)
+        }
+        fetch()
+    }, [tasks])
+
     const [isNewTaskOpen, setIsNewTaskOpen] = useState(false)
 
     const handleNewTaskClose = () => {
         setIsNewTaskOpen(false)
     }
 
-  return (
-    <div className="app-panel">
-        <div className="user-landing">
-            <Landing/>
-        </div>
-        <div className="panel">
-        {isNewTaskOpen && <div className="new-task-panel">
-            <NewTaskPanel isOnEditMode={false} task={null} onCloseButtonClick={handleNewTaskClose}/>
-        </div>}
-            <div className="user">
-                <div className="user-msg">
-                    <p>Welcome back,</p>
-                    <p className="username">User 👋🏻</p>
-                </div>
+    return (
+        <div className="app-panel">
+            <div className="user-landing">
+                <Landing />
             </div>
-            <div className="top-data">
-                <div className="date">
-                    <p>{currentDate()}</p>
-                </div>
-                <div className="user-profile-img">
-                    <FontAwesomeIcon icon={faUser}/>
-                </div>
-            </div>
-            <div className="tasks-completion">
-                <p className='task-msg'>Task completion for today</p>
-                <div className="task-rate">
-                    <TaskRateCircle percentage={15}/>
-                </div>
-            </div>
-            <div className="tasks">
-                <div className="task-management">
-                    <div className="tasks-status">
-                        <p>To do</p>
-                        <p>In Progress</p>
-                        <p>Done</p>
+            <div className="panel">
+                {isNewTaskOpen && <div className="new-task-panel">
+                    <NewTaskPanel panelTitle='Add a new task' isOnEditMode={false} task={null} onCloseButtonClick={handleNewTaskClose} />
+                </div>}
+                <div className="user">
+                    <div className="user-msg">
+                        <p>Welcome back,</p>
+                        <p className="username">User 👋🏻</p>
                     </div>
-                    <div className="new-task" onClick={() => setIsNewTaskOpen(true)}>
-                        <div className="new-task-icon">
-                            <p>+</p>
+                </div>
+                <div className="top-data">
+                    <div className="date">
+                        <p>{currentDate()}</p>
+                    </div>
+                    <div className="user-profile-img">
+                        <FontAwesomeIcon icon={faUser} />
+                    </div>
+                </div>
+                <div className="tasks-completion">
+                    <p className='task-msg'>Task completion for today</p>
+                    <div className="task-rate">
+                        <TaskRateCircle toDoTasksNumber={toDoTasks.length} doneTasksNumber={doneTasks.length}/>
+                    </div>
+                </div>
+                <div className="tasks">
+                    <div className="task-management">
+                        <div className="tasks-status">
+                            <p>To do ({toDoTasks.length})</p>
+                            <p>Done ({doneTasks.length})</p>
                         </div>
-                        <p className="new-task-msg">Add new</p>
+                        <div className="new-task" onClick={() => setIsNewTaskOpen(true)}>
+                            <div className="new-task-icon">
+                                <p>+</p>
+                            </div>
+                            <p className="new-task-msg">Add new</p>
+                        </div>
                     </div>
+                    <TasksPanel tasks={tasks} />
                 </div>
-                <TasksPanel/>
             </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default AppPanel

@@ -11,12 +11,13 @@ import ApiHandler from '../api/ApiHandler'
 import SelectorConverter from '../__selector-converter/SelectorConverter'
 
 interface TaskPanelProps {
+  panelTitle: string
   isOnEditMode: boolean;
   task: [taskId: number, taskName: string, taskDescription: string, taskPriority: string] | null
   onCloseButtonClick: (clicked: boolean) => void
 }
 
-function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps) {
+function NewTaskPanel({ panelTitle, isOnEditMode, task, onCloseButtonClick }: TaskPanelProps) {
   const [isCloseButtonClicked, setIsCloseButtonClicked] = useState(false)
 
   const handleCloseButtonClick = () => {
@@ -30,47 +31,33 @@ function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps
     { key: 'Medium', icon: faMinus, color: 'var(--primary-yellow)' },
     { key: 'Low', icon: faCaretDown, color: 'var(--primary-red)' }
   ]
-
-  //Define os valores a serem inicializados nos campos quando no modo de edição de tarefa
-  const [defaultSelectorValue, setDefaultSelectorValue] = useState('')
-
-  var editTaskId: number
-  var editTaskName: string
-  var editTaskDescription: string
-  var editTaskPriority: string
-
-  useEffect(() => {
-    if (isOnEditMode && task != null) {
-      editTaskId = task[0]
-      editTaskName = task[1]
-      editTaskDescription = task[2]
-      editTaskPriority = task[3]
-      setTaskIdValue(editTaskId)
-      setTaskNameValue(editTaskName)
-      setTaskDescriptionValue(editTaskDescription)
-      setDefaultSelectorValue(editTaskPriority)
-    }
-  }, [])
   //------------------------------------------------------------------------------------
 
+  var taskId: number, defaultTaskName: string, defaultTaskDescription: string, defaultTaskPriority: string
+
+  taskId = task ? task[0] : 0
+  defaultTaskName = task ? task[1] : ''
+  defaultTaskDescription = task ? task[2] : ''
+  defaultTaskPriority = task ? task[3] : 'High'
+
   //Variáveis responsáveis por atualizarem o valor dos campos, usando funções de callback
-  const [taskIdValue, setTaskIdValue] = useState(1)
 
-  const [taskNameValue, setTaskNameValue] = useState('')
+  const [taskName, setTaskName] = useState(defaultTaskName)
   const getTaskName = (value: string) => {
-    setTaskNameValue(value)
+    setTaskName(value)
   }
 
-  const [taskDescriptionValue, setTaskDescriptionValue] = useState('')
+  const [taskDescription, setTaskDescription] = useState(defaultTaskDescription)
   const getTaskDescription = (value: string) => {
-    setTaskDescriptionValue(value)
+    setTaskDescription(value)
   }
 
-  const [taskPriorityId, setTaskPriorityId] = useState(1)
+  const [taskPriority, setTaskPriority] = useState(defaultTaskPriority)
   const getTaskPriority = (value: string) => {
-    const converter = new SelectorConverter()
-    setTaskPriorityId(converter.convertStringToId(value, SelectorConverter.Priority))
+    setTaskPriority(value)
   }
+
+
   //--------------------------------------------------------------------------------------
 
   //Define as mensagens quando uma tarefa é postada
@@ -92,7 +79,7 @@ function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps
   function submitTask() {
 
     if (!isOnEditMode) {
-      if (taskNameValue.trim().length == 0 || taskDescriptionValue.trim().length == 0) {
+      if (taskName.trim().length == 0 || taskDescription.trim().length == 0) {
         addSubmitMessage('var(--primary-red)', 'Fill all fields before assining a new task')
       }
       else {
@@ -101,34 +88,33 @@ function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps
       }
     }
     else {
-      const converter = new SelectorConverter()
-
-      const editPriorityId = converter.convertStringToId(editTaskPriority, SelectorConverter.Priority)
-      if (editTaskName == taskNameValue && editTaskDescription == taskDescriptionValue && editPriorityId == taskPriorityId) {
+      if(taskName == defaultTaskName && taskDescription == defaultTaskDescription && taskPriority == defaultTaskPriority) {
         addSubmitMessage('var(--primary-red)', 'Values should not be the same')
       }
       else {
-        addSubmitMessage('var(--primary-green)', 'Task editted successfully')
-        handleTaskPost()
+      addSubmitMessage('var(--primary-green)', 'Task editted successfully')
+      handleTaskPost()
       }
     }
   }
-  //---------------------------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 
-  //Função responsável por criar o objeto ApiHandler e passar os valores para a requisição
-  function handleTaskPost() {
-    const apiHandler = new ApiHandler()
-    if (!isOnEditMode) {
-      apiHandler.postData(taskNameValue, taskDescriptionValue, taskPriorityId)
-    }
-    else {
-      apiHandler.editData(taskIdValue, taskNameValue, taskDescriptionValue, taskPriorityId)
-    }
+//Função responsável por criar o objeto ApiHandler e passar os valores para a requisição
+function handleTaskPost() {
+  const apiHandler = new ApiHandler()
+  const converter = new SelectorConverter()
+  const postTaskPriority = converter.convertStringToId(taskPriority, SelectorConverter.Priority)
+  if(!isOnEditMode) {
+    apiHandler.postData(taskName, taskDescription, postTaskPriority)
   }
+  else {
+    apiHandler.editData(taskId, taskName, taskDescription, postTaskPriority)
+  }
+}
 
-  return (
-    <div className="new-task-overlay">
-      <div className="messages-bx">
+return (
+  <div className="new-task-overlay">
+    <div className="messages-bx">
         {submitMessages.map((submitMessage) => (
           <PrimaryMessage
             key={submitMessage.id}
@@ -137,50 +123,50 @@ function NewTaskPanel({ isOnEditMode, task, onCloseButtonClick }: TaskPanelProps
           />
         ))}
       </div>
-      <div className="new-task-component">
-        <div className="new-task-content">
-          <div className="new-task-panel-title">
-            <p>Add New Task</p>
-          </div>
-          <div className="close-bx" onClick={handleCloseButtonClick}>
-            <p className="close">x</p>
-          </div>
-          <div className="new-task-fields">
-            <PrimaryInput
-              className='task-name-input'
-              placeholder='Task Name'
-              height='50px'
-              defaultValue={taskNameValue}
-              onInputChange={getTaskName}
-            />
-            <PrimaryTextArea
-              className='task-description-textarea'
-              placeholder='Task Description'
-              height='80px'
-              defaultValue={taskDescriptionValue}
-              onTextAreaChange={getTaskDescription}
-            />
-            <div className="selectors">
-              <PrimarySelector
-                className='priority-selector'
-                icons={prioritySelectorIcons}
-                defaultValue={defaultSelectorValue}
-                selectorTitle='Task Priority'
-                onSelectedChange={getTaskPriority}
-              />
-            </div>
-            <PrimaryButton
-              className='send-task-button'
-              buttonValue='Send Task'
-              width='96px'
-              height='35px'
-              onClickedAction={submitTask}
+    <div className="new-task-component">
+      <div className="new-task-content">
+        <div className="new-task-panel-title">
+          <p>{panelTitle}</p>
+        </div>
+        <div className="close-bx" onClick={handleCloseButtonClick}>
+          <p className="close">x</p>
+        </div>
+        <div className="new-task-fields">
+          <PrimaryInput
+            className='task-name-input'
+            placeholder='Task Name'
+            height='50px'
+            defaultValue={taskName}
+            onInputChange={getTaskName}
+          />
+          <PrimaryTextArea
+            className='task-description-textarea'
+            placeholder='Task Description'
+            height='80px'
+            defaultValue={taskDescription}
+            onTextAreaChange={getTaskDescription}
+          />
+          <div className="selectors">
+            <PrimarySelector
+              className='priority-selector'
+              icons={prioritySelectorIcons}
+              defaultValue={taskPriority}
+              selectorTitle='Task Priority'
+              onSelectedChange={getTaskPriority}
             />
           </div>
+          <PrimaryButton
+            className='send-task-button'
+            buttonValue='Send Task'
+            width='96px'
+            height='35px'
+            onClickedAction={submitTask}
+          />
         </div>
       </div>
     </div>
-  )
+  </div>
+)
 }
 
 export default NewTaskPanel

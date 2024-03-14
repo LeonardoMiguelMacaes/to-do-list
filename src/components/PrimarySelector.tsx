@@ -15,32 +15,33 @@ interface PrimarySelectorProps {
 function PrimarySelector({ className, icons, defaultValue, selectorTitle, onSelectedChange }: PrimarySelectorProps) {
     const converter = new SelectorConverter()
     
-    const selectValues = icons.map(value => value.key)
-    const iconValues = icons.map(value => value.icon)
-    const colorValues = icons.map(value => value.color)
-    const [selected, setSelected] = useState('High')
-    const [selectIcon, setSelectIcon] = useState(faCaretUp)
-    const [iconColor, setIconColor] = useState('var(--primary-green)')
+    //Valores passados como parâmetros para o componente
+    const listedValues = icons.map(value => value.key)
+    const listedIcons = icons.map(value => value.icon)
+    const colors = icons.map(value => value.color)
+    //--------------------------------------------------
 
-    useEffect(() => {
-        setSelected(defaultValue)
-    }, [defaultValue])
-    
-    const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelected(event.target.value)
-        onSelectedChange(event.target.value)
-    }
+    //Variáveis de estado do componente
+    const [selectedListedValue, setSelectedListedValue] = useState(defaultValue)
+    const [selectIcon, setSelectIcon] = useState(faCaretUp)
+    const [iconColor, setIconColor] = useState('')
 
     useEffect(() => {
         setIcon()
-    }, [selected])
+    }, [selectedListedValue])
     
+    const handleSelected = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedListedValue(event.target.value)
+        onSelectedChange(event.target.value)
+    }
+    
+    //Função que define o ícone de acordo com o valor selecionado
     function setIcon(): IconDefinition {
         icons.map((value, index) => {
-            const iconKey = selectValues[index]
-            if(iconKey == selected) {
-                const selectedIconValue = iconValues[index]
-                const selectedIconColor = colorValues[index]
+            const iconListedValue = listedValues[index]
+            if(iconListedValue == selectedListedValue) {
+                const selectedIconValue = listedIcons[index]
+                const selectedIconColor = colors[index]
                 setSelectIcon(selectedIconValue)
                 setIconColor(selectedIconColor)
             }
@@ -58,8 +59,8 @@ return (
             <div className="icon-bx" style={{backgroundColor: iconColor}}>
                 <FontAwesomeIcon icon={selectIcon}/>
             </div>
-            <select className={className} id='selector' value={selected} onChange={handleSelected}>
-                {selectValues.map((value) => (
+            <select className={className} id='selector' value={selectedListedValue} onChange={handleSelected}>
+                {listedValues.map((value) => (
                     <option id='selected' value={value}>
                         {value}</option>
                 ))}

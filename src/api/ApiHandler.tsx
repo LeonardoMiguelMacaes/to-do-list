@@ -59,6 +59,22 @@ class ApiHandler {
         }
     }
 
+    public async updateStatus(taskId: number, isTaskDone: boolean) {
+        const bodyResponse = `${isTaskDone}`
+        try {
+            const response = await fetch(`http://localhost:8080/todos/set-status/${taskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                body: bodyResponse
+            })
+        }
+        catch(error: any) {
+        }
+    }
+
     public async deleteData(taskId: number) {
         try {
             const response = await fetch(`http://localhost:8080/todos/${taskId}`, {

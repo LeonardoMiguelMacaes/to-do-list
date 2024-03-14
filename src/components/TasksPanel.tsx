@@ -3,18 +3,11 @@ import ApiHandler from '../api/ApiHandler'
 import TaskComponent from './Task'
 import './TasksPanel.css'
 
-function TasksPanel() {
-  const apiHandler = new ApiHandler()
-  const [tasks, setTasks] = useState<any[]>([])
+interface TasksPanelProps {
+  tasks: {id: number, name: string, description: string, done: boolean, priority: number}[]
+}
 
-  useEffect(() => {
-    const fetch = async () => {
-      const data = await apiHandler.fetchData()
-      setTasks(data)
-    }
-
-    fetch()
-  }, [apiHandler])
+function TasksPanel({ tasks }: TasksPanelProps) {
   return (
       <div className='tasks-panel'>
           {tasks.map(task => (
