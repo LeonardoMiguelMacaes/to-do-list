@@ -22,7 +22,7 @@ function PrimaryTextArea({ className, placeholder, height, defaultValue, onTextA
           cols={20} 
           rows={10} 
           style={{height: height}} 
-          maxLength={80} 
+          maxLength={35}
           onChange={handleTextAreaChange}
           value={defaultValue}>
         </textarea>

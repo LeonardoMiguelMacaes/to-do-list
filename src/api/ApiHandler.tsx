@@ -1,20 +1,31 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import Task from '../_interface/TaskInterface'
+import { TaskContext } from '../_context/TaskContext'
 
 class ApiHandler {
     private data: any[] = []
 
-    public async fetchData(): Promise<any[]> {
+    public async fetchData(): Promise<Task[]> {
         try {
             const response = await fetch('http://localhost:8080/todos')
 
             if (response.ok) {
                 const result = await response.json()
-                this.data = result
+                const tasks: Task[] = result.map((data: any) => (
+                    {
+                        id: data.id,
+                        name: data.name,
+                        description: data.description,
+                        done: data.done,
+                        priority: data.priority
+                    }
+                ))
+                return tasks
             }
         }
         catch (error: any) {
         }
-        return this.data
+        return []
     }
 
     public async postData(taskName: string, taskDescription: string, taskPriority: number) {
@@ -34,7 +45,7 @@ class ApiHandler {
                 body: bodyResponse
             })
         }
-        catch(error: any) {  
+        catch (error: any) {
         }
     }
 
@@ -55,7 +66,7 @@ class ApiHandler {
                 body: bodyResponse
             })
         }
-        catch(error: any) {
+        catch (error: any) {
         }
     }
 
@@ -71,7 +82,7 @@ class ApiHandler {
                 body: bodyResponse
             })
         }
-        catch(error: any) {
+        catch (error: any) {
         }
     }
 
@@ -81,7 +92,18 @@ class ApiHandler {
                 method: 'DELETE'
             })
         }
-        catch(error: any) {
+        catch (error: any) {
+        }
+    }
+
+    public returnTasks() {
+        const fetchData = async () => {
+            try {
+                const data = await this.fetchData();
+                return data
+            } catch (error) {
+                console.error("Erro ao buscar dados:", error);
+            }
         }
     }
 }

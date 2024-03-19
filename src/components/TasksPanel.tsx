@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import ApiHandler from '../api/ApiHandler'
 import TaskComponent from './Task'
 import './TasksPanel.css'
+import { TaskContext } from '../_context/TaskContext'
 
 interface TasksPanelProps {
-  tasks: {id: number, name: string, description: string, done: boolean, priority: number}[]
+  receivedTasks: {id: number, name: string, description: string, done: boolean, priority: number}[]
 }
 
-function TasksPanel({ tasks }: TasksPanelProps) {
+function TasksPanel({ receivedTasks }: TasksPanelProps) {
+  
   return (
       <div className='tasks-panel'>
-          {tasks.map(task => (
-              <TaskComponent id={task.id} name={task.name} description={task.description} done={task.done} priority={task.priority}/>
+          {receivedTasks.map((task, index) => (
+            <div className="task-bx">
+              <TaskComponent id={task.id} name={task.name} description={task.description} done={task.done} priority={task.priority} className={index >= 1 ? 'bottom' : ''}/>
+            </div>
           ))}
       </div>
   )

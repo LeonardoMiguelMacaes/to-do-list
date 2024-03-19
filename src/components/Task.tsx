@@ -2,13 +2,15 @@ import './Task.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faList } from '@fortawesome/free-solid-svg-icons'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import NewTaskPanel from './NewTaskPanel'
 import SelectorConverter from '../__selector-converter/SelectorConverter'
 import ApiHandler from '../api/ApiHandler'
-import Task from '../_task/TaskInterface'
+import Task from '../_interface/TaskInterface'
+import { TaskContext } from '../_context/TaskContext'
 
-function TaskComponent(props: Task) {
+function TaskComponent(props: Task & {className: string}) {
+    const {updateTasks} = useContext(TaskContext)
     const apiHandler = new ApiHandler()
     const converter = new SelectorConverter()
 
@@ -34,7 +36,9 @@ function TaskComponent(props: Task) {
 
     function handleUpdateStatusClick() {
         const isTaskDone = props.done == false ? true : false
-        apiHandler.updateStatus(taskId, isTaskDone)
+        apiHandler.updateStatus(taskId, isTaskDone).then(() => {
+            updateTasks()
+        })
     }
 
     function handleEditTaskClick() {
@@ -42,7 +46,9 @@ function TaskComponent(props: Task) {
     }
 
     function handleDeleteTaskClick() {
-        apiHandler.deleteData(taskId)
+        apiHandler.deleteData(taskId).then(() => {
+            updateTasks()
+        })
     }
 
     useEffect(() => {
@@ -60,7 +66,7 @@ function TaskComponent(props: Task) {
     }, [])
     
     return (
-            <div className="task">
+            <div className={`task ${props.className}`} id={`${taskId}`}>
                 {isEditTaskOpen && <NewTaskPanel panelTitle='Edit task' isOnEditMode={true} task={[taskId, taskName, taskDescription, taskPriority]}onCloseButtonClick={handleEditTaskClose}/>}
                 <div className="task-wrapper">
                     <div className="task-status">

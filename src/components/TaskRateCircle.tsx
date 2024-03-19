@@ -10,7 +10,7 @@ interface TaskRateCircleProps {
 function TaskRateCircle({ toDoTasksNumber, doneTasksNumber }: TaskRateCircleProps) {
 
   const percentage = () => {
-    return (doneTasksNumber / (toDoTasksNumber + doneTasksNumber)) * 100
+    return Math.floor((doneTasksNumber / (toDoTasksNumber + doneTasksNumber)) * 100)
   }
   return (
     <div>

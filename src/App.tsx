@@ -1,4 +1,5 @@
 import './App.css'
+import TaskContextProvider from './_context/TaskContext'
 import AppPanel from './components/AppPanel'
 import Landing from './components/Landing'
 import TaskComponent from './components/Task'
@@ -8,7 +9,9 @@ function App() {
 
   return (
     <div className="app">
-      <AppPanel/>
+      <TaskContextProvider>
+        <AppPanel/>
+      </TaskContextProvider>
     </div>
   )
 }

@@ -3,6 +3,18 @@
     justify-content: flex-start;
     align-items: center;
     flex-direction: column;
+    width: 500px;
     height: 206px;
     gap: 15px;
+    padding: 6px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.tasks-panel::-webkit-scrollbar {
+    display: none;
+}
+
+.task-bx {
+    width: 100%;
 }

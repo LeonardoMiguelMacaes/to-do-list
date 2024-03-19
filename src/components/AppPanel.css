@@ -98,14 +98,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 60px;
+    gap: 50px;
 }
-.tasks-status {
+.task-groups {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 60px;
-    margin: 15px;
+    gap: 30px;
     font-weight: 600;
 }
 
@@ -114,9 +113,17 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    width: 106px;
+    white-space: nowrap;
     gap: 5px;
     color: rgba(0, 0, 0, 0.5);
     font-weight: 600;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.new-task:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .new-task-icon {

@@ -1,0 +1,22 @@
+.task-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 35px;
+    white-space: nowrap;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.selected {
+    color: black;
+}
+
+.unselected {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.task-group:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}

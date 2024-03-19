@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCaretUp, faCaretDown, faMinus, IconDefinition } from '@fortawesome/free-solid-svg-icons'
 import PrimaryInput from './PrimaryInput'
@@ -9,6 +9,7 @@ import PrimaryButton from './PrimaryButton'
 import PrimaryMessage from './PrimaryMessage'
 import ApiHandler from '../api/ApiHandler'
 import SelectorConverter from '../__selector-converter/SelectorConverter'
+import { TaskContext } from '../_context/TaskContext'
 
 interface TaskPanelProps {
   panelTitle: string
@@ -18,6 +19,7 @@ interface TaskPanelProps {
 }
 
 function NewTaskPanel({ panelTitle, isOnEditMode, task, onCloseButtonClick }: TaskPanelProps) {
+  const {updateTasks} = useContext(TaskContext)
   const [isCloseButtonClicked, setIsCloseButtonClicked] = useState(false)
 
   const handleCloseButtonClick = () => {
@@ -105,10 +107,14 @@ function handleTaskPost() {
   const converter = new SelectorConverter()
   const postTaskPriority = converter.convertStringToId(taskPriority, SelectorConverter.Priority)
   if(!isOnEditMode) {
-    apiHandler.postData(taskName, taskDescription, postTaskPriority)
+    apiHandler.postData(taskName, taskDescription, postTaskPriority).then(() => {
+      updateTasks()
+    })
   }
   else {
-    apiHandler.editData(taskId, taskName, taskDescription, postTaskPriority)
+    apiHandler.editData(taskId, taskName, taskDescription, postTaskPriority).then(() => {
+      updateTasks()
+    })
   }
 }
 
