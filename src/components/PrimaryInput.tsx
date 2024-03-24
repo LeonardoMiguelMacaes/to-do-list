@@ -9,6 +9,8 @@ interface PrimaryInputProps {
   onInputChange: (value: string) => void
 }
 
+//Componente de input
+
 function PrimaryInput({ placeholder, className, height, defaultValue, onInputChange }: PrimaryInputProps) {
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {

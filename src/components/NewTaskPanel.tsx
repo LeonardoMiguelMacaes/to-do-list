@@ -1,15 +1,21 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useContext, useState } from 'react'
+
 import { faCaretUp, faCaretDown, faMinus, IconDefinition } from '@fortawesome/free-solid-svg-icons'
+
 import PrimaryInput from './PrimaryInput'
-import './NewTaskPanel.css'
 import PrimarySelector from './PrimarySelector'
 import PrimaryTextArea from './PrimaryTextArea'
 import PrimaryButton from './PrimaryButton'
 import PrimaryMessage from './PrimaryMessage'
+
 import ApiHandler from '../api/ApiHandler'
 import SelectorConverter from '../__selector-converter/SelectorConverter'
+
 import { TaskContext } from '../_context/TaskContext'
+
+import './NewTaskPanel.css'
+
+//Componente responsável por criar uma nova tarefa ou editar uma tarefa existente
 
 interface TaskPanelProps {
   panelTitle: string

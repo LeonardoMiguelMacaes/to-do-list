@@ -18,3 +18,12 @@
 .task-bx {
     width: 100%;
 }
+
+.no-tasks-bx {
+    position: relative;
+    top: 15px;
+}
+
+.no-tasks {
+    color: rgba(0, 0, 0, 0.5);
+}

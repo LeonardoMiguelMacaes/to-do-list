@@ -12,6 +12,10 @@ interface PrimarySelectorProps {
     onSelectedChange: (value: string) => void
 }
 
+//Componente com valores a serem selecionados
+//Recebe uma lista de ícones, suas cores e os valores
+//Retorna os valores por meio de lifting state up
+
 function PrimarySelector({ className, icons, defaultValue, selectorTitle, onSelectedChange }: PrimarySelectorProps) {
     const converter = new SelectorConverter()
     

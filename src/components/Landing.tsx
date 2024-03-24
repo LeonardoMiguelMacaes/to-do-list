@@ -2,6 +2,8 @@ import React from 'react'
 import img from '../assets/to-do-list-img.png'
 import './Landing.css'
 
+//Componente apresentando o aplicativo
+
 function Landing() {
   return (
     <div className="landing">

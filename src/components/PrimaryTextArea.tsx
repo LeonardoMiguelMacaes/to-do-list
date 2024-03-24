@@ -9,6 +9,8 @@ interface PrimaryTextAreaProps {
     onTextAreaChange: (value: string) => void
   }
 
+  //Componente de text area
+
 function PrimaryTextArea({ className, placeholder, height, defaultValue, onTextAreaChange }: PrimaryTextAreaProps) {
 
   const handleTextAreaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {

@@ -7,7 +7,6 @@ class SelectorConverter {
                 return element.value
             }
         }
-        
         return ''
     }
     
@@ -17,7 +16,8 @@ class SelectorConverter {
                 return element.id
             }
         }
-        
         return -1
     }
-} export default SelectorConverter
+} 
+
+export default SelectorConverter

@@ -9,6 +9,9 @@ import ApiHandler from '../api/ApiHandler'
 import Task from '../_interface/TaskInterface'
 import { TaskContext } from '../_context/TaskContext'
 
+//Componente que representa uma tarefa
+//Recebe uma tarefa e mostra os valores
+
 function TaskComponent(props: Task & {className: string}) {
     const {updateTasks} = useContext(TaskContext)
     const apiHandler = new ApiHandler()
@@ -18,12 +21,15 @@ function TaskComponent(props: Task & {className: string}) {
     const [isEditTaskOpen, setIsEditTaskOpen] = useState(false)
     const optionsDivRef = useRef<HTMLDivElement>(null)
 
+    
     var taskId = props.id
     var taskName = props.name
     var taskDescription = props.description
     var taskDone = props.done ? "Done" : "To Do"
     var taskDoneBackgroundColor = props.done ? "var(--primary-green)" : "var(--secondary-color)"
     var taskPriority = converter.convertIdToString(props.priority, SelectorConverter.Priority)
+
+    //Controla as operações de editar, deletar e atualizar o status de uma tarefa
     
     const handleEditTaskClose = () => {
         setIsEditTaskOpen(false)
@@ -34,6 +40,7 @@ function TaskComponent(props: Task & {className: string}) {
         setIsOptionsClicked(optionsPanelStatus)
     }
 
+    //Usa task context para atualizar as tarefas mostradas quando alguma alteração é feita por meio da api
     function handleUpdateStatusClick() {
         const isTaskDone = props.done == false ? true : false
         apiHandler.updateStatus(taskId, isTaskDone).then(() => {
@@ -51,6 +58,7 @@ function TaskComponent(props: Task & {className: string}) {
         })
     }
 
+    //Controla se algum clique é feito fora do painel de opções quando ele está ativado, fechando o painel
     useEffect(() => {
         function handleOutsideOptionsDivClick(event: MouseEvent) {
             if(optionsDivRef.current && !optionsDivRef.current.contains(event.target as Node)) {

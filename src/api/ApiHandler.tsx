@@ -1,9 +1,6 @@
-import { useContext, useEffect, useState } from 'react'
 import Task from '../_interface/TaskInterface'
-import { TaskContext } from '../_context/TaskContext'
 
 class ApiHandler {
-    private data: any[] = []
 
     public async fetchData(): Promise<Task[]> {
         try {
@@ -36,7 +33,7 @@ class ApiHandler {
             "priority": ${taskPriority}
         }`
         try {
-            const response = await fetch('http://localhost:8080/todos', {
+            await fetch('http://localhost:8080/todos', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -57,7 +54,7 @@ class ApiHandler {
             "priority": ${taskPriority}
         }`
         try {
-            const response = await fetch(`http://localhost:8080/todos/edit/${taskId}`, {
+            await fetch(`http://localhost:8080/todos/edit/${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -73,7 +70,7 @@ class ApiHandler {
     public async updateStatus(taskId: number, isTaskDone: boolean) {
         const bodyResponse = `${isTaskDone}`
         try {
-            const response = await fetch(`http://localhost:8080/todos/set-status/${taskId}`, {
+            await fetch(`http://localhost:8080/todos/set-status/${taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
@@ -88,7 +85,7 @@ class ApiHandler {
 
     public async deleteData(taskId: number) {
         try {
-            const response = await fetch(`http://localhost:8080/todos/${taskId}`, {
+            await fetch(`http://localhost:8080/todos/${taskId}`, {
                 method: 'DELETE'
             })
         }
@@ -96,15 +93,13 @@ class ApiHandler {
         }
     }
 
-    public returnTasks() {
-        const fetchData = async () => {
+    public async returnTasks() {
             try {
                 const data = await this.fetchData();
                 return data
             } catch (error) {
                 console.error("Erro ao buscar dados:", error);
             }
-        }
     }
 }
 
