@@ -123,7 +123,7 @@ Painel que mostra a porcentagem de tarefas feitas, com base nas tarefas a fazer 
 
 ![To Do List - Documentação - Painel Tarefas Completas 3](https://github.com/peregozo/to-do-list/assets/160425803/057aa00f-27c4-44f9-b34e-519ccc49036f)
 
-##Desafios e pontos a melhorar
+## Desafios e pontos a melhorar
 
 Como mencionado, os maiores desafios no projeto vieram no front-end. React é uma biblioteca muito diferente do uso de somente JavaScript como estava habituado.
 Os hooks parecem muito complicados em primeira vista e foram necessários alguns vídeos para começar a entender. As operações assíncronas de hooks como use state tornou necessário pensar bastante e pesquisar para implementar algumas funcionalidades.
@@ -140,7 +140,7 @@ Com base nisso, existem alguns pontos que podem ser melhorados no código:
 
 Esses são alguns processos que melhoram não apenas a funcionalidade, mas também tornam mais eficientes a organização e manutenção do código.
 
-##Instalação
+## Instalação
 
 Aqui será ensinado apenas como instalar o projeto React.
 
