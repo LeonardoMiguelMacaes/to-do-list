@@ -144,10 +144,20 @@ Esses são alguns processos que melhoram não apenas a funcionalidade, mas tamb�
 
 Aqui será ensinado apenas como instalar o projeto React.
 
-Para instalar o projeto clone o repositório do GitHub por meio do terminal com o comando:
+O projeto não está disponível por meio de alguma plataforma, e desta forma é necessário instalar o projeto na máquina. Você pode fazer isso seguindo as instruções.
+
+**1 - Clonar o repositório:** Para instalar o projeto, clone o repositório do GitHub por meio do terminal com o comando:
 
 ```git clone https://github.com/peregozo/to-do-list```
 
-Com o projeto já clonado, navegue até a pasta por meio de:
+**2 - Navegar até a pasta** Com o projeto já clonado, navegue até a pasta por meio de:
 
 ```cd to-do-list```
+
+**3 - Instalar as dependências:** Instale as dependências do projeto com o comando:
+
+```npm install```
+
+**4 - Iniciar o código:** Inicie o código por meio:
+
+```npm run dev```
