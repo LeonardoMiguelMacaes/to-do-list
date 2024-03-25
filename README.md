@@ -5,6 +5,7 @@ Esse aplicativo é capaz de visualizar, inserir, deletar e atualizar tarefas de 
 ## Sobre o projeto
 
 Projeto pessoal para aprender a construir um projeto completo, desde o back-end até o front. Para isso, foram escolhidas duas ferramentas que tive contato pela primeira vez: React para o front e Java Spring para o back. Essa foi a primeira vez entrando em contato não somente com essas duas ferramentas, mas de maneira geral, com esse tipo de framework.
+
 React mostrou-se um pouco mais desafiador quando comparado com HTML, CSS e JavaScript. Todos os hooks e a estrutura de código diferente não foram tão fáceis de aprender no começo, mas após um tempo de adaptação, tornou-se mais acessível e a biblioteca mostrou seu valor. Para desenvolver a API Rest, Java Spring facilitou muito o trabalho, e não teve problemas para entender.
 
 ## Funcionalidades
@@ -121,3 +122,32 @@ Painel que mostra a porcentagem de tarefas feitas, com base nas tarefas a fazer 
 ![To Do List - Documentação - Painel Tarefas Completas 2](https://github.com/peregozo/to-do-list/assets/160425803/fa5aaefb-ff0b-4d44-bec8-1c65869670c0)
 
 ![To Do List - Documentação - Painel Tarefas Completas 3](https://github.com/peregozo/to-do-list/assets/160425803/057aa00f-27c4-44f9-b34e-519ccc49036f)
+
+##Desafios e pontos a melhorar
+
+Como mencionado, os maiores desafios no projeto vieram no front-end. React é uma biblioteca muito diferente do uso de somente JavaScript como estava habituado.
+Os hooks parecem muito complicados em primeira vista e foram necessários alguns vídeos para começar a entender. As operações assíncronas de hooks como use state tornou necessário pensar bastante e pesquisar para implementar algumas funcionalidades.
+O conceito de lifting state up também mostrou-se um desafio. Passar dados de um componente filho para um componente pai por meio de funções de callback foi algo que demorou para entender
+
+Com base nisso, existem alguns pontos que podem ser melhorados no código:
+
+- Tornar a leitura do código mais fácil
+- Não repetir código
+- Organizar as responsabilidades de funções e componentes
+- Tratamento de erros
+- Implementação de testes
+- Documentação organizada e uso mais frequente do github
+
+Esses são alguns processos que melhoram não apenas a funcionalidade, mas também tornam mais eficientes a organização e manutenção do código.
+
+##Instalação
+
+Aqui será ensinado apenas como instalar o projeto React.
+
+Para instalar o projeto clone o repositório do GitHub por meio do terminal com o comando:
+
+```git clone https://github.com/peregozo/to-do-list```
+
+Com o projeto já clonado, navegue até a pasta por meio de:
+
+```cd to-do-list```
