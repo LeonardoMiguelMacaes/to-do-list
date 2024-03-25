@@ -1,4 +1,4 @@
-![To Do List - Documentação - Ordenação Tarefas 1](https://github.com/peregozo/to-do-list/assets/160425803/a18bba9a-64dd-4203-af55-fb9ac92d8aa2)# To Do List - Vite + React + Java Spring
+# To Do List - Vite + React + Java Spring
 
 ## Sobre o projeto
 
@@ -7,7 +7,7 @@ React mostrou-se um pouco mais desafiador, quando comparado com HTML, CSS e Java
 
 Esse aplicativo é capaz de visualizar, inserir, deletar e atualizar tarefas de maneira rápida. Todas as funcionalidades do aplicativo serão apresentadas.
 
-### Funcionalidades
+## Funcionalidades
 
 O aplicativo, por ser simples e não ter necessidade de ocupar muito espaço, foi projetado para ocupar apenas uma pequena parte da tela.
 Ao executar o projeto, a tela mostrada pela primeira vez mostra o painel de tarefas com a data do dia e informações sobre as tarefas, que no momento não são existentes.
