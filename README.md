@@ -11,10 +11,12 @@ React mostrou-se um pouco mais desafiador quando comparado com HTML, CSS e JavaS
 
 O aplicativo, por ser simples e não ter necessidade de ocupar muito espaço, foi projetado para ocupar apenas uma pequena parte da tela.
 Ao executar o projeto, a tela mostrada pela primeira vez mostra o painel de tarefas com a data do dia e informações sobre as tarefas, que no momento não são existentes.
+
 ![To Do List - Documentação - Interface](https://github.com/peregozo/to-do-list/assets/160425803/52cc2c1c-978f-4ca6-9b0f-be9f917892ee)
 
 ### 1 - Adicionar uma tarefa ✔️
 Ao clicar em 'Add new' é possível criar uma nova tarefa. Cada tarefa tem três campos a serem preenchidos:
+
 -Nome
 -Descrição
 -Prioridade
