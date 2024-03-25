@@ -1,11 +1,11 @@
-# To Do List - Vite + React + Java Spring
+# To Do List Web App - Vite + React + Java Spring
+
+Esse aplicativo é capaz de visualizar, inserir, deletar e atualizar tarefas de maneira rápida. Todas as funcionalidades do aplicativo serão apresentadas.
 
 ## Sobre o projeto
 
 Projeto pessoal para aprender a construir um projeto completo, desde o back-end até o front. Para isso, foram escolhidas duas ferramentas que tive contato pela primeira vez: React para o front e Java Spring para o back. Essa foi a primeira vez entrando em contato não somente com essas duas ferramentas, mas de maneira geral, com esse tipo de framework.
 React mostrou-se um pouco mais desafiador quando comparado com HTML, CSS e JavaScript. Todos os hooks e a estrutura de código diferente não foram tão fáceis de aprender no começo, mas após um tempo de adaptação, tornou-se mais acessível e a biblioteca mostrou seu valor. Para desenvolver a API Rest, Java Spring facilitou muito o trabalho, e não teve problemas para entender.
-
-Esse aplicativo é capaz de visualizar, inserir, deletar e atualizar tarefas de maneira rápida. Todas as funcionalidades do aplicativo serão apresentadas.
 
 ## Funcionalidades
 
