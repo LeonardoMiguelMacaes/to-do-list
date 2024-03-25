@@ -17,9 +17,9 @@ Ao executar o projeto, a tela mostrada pela primeira vez mostra o painel de tare
 ### 1 - Adicionar uma tarefa ✔️
 Ao clicar em 'Add new' é possível criar uma nova tarefa. Cada tarefa tem três campos a serem preenchidos:
 
--Nome
--Descrição
--Prioridade
+- Nome
+- Descrição
+- Prioridade
 
 Por default, os campos começam vazios no modo de adicionar uma nova tarefa e podem ser preenchidos livremente, apesar de um limite de letras.
 
@@ -70,9 +70,9 @@ Também é possível visualizar as tarefas de acordo com seu status, acessadas p
 
 ### 3 - Manipular tarefa 📓
 Ao clicar no ícone do lado direito de um componente de tarefa é possível visualizar três opções:
--Mudar o status
--Editar a tarefa
--Deletar a tarefa
+- Mudar o status
+- Editar a tarefa
+- Deletar a tarefa
 
 Uma funcionalidade interessante que foi implementada é que o código controla quais tarefas estão visíveis na tela no momento e calcula quais tem espaço para permitir que a div de opções se direcione para baixo e quais é necessário que se direcione para cima, otimizando o espaço na tela.
 
